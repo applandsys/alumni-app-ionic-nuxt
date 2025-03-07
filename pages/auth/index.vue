@@ -15,8 +15,8 @@ const formData = ref({
     try {
      const {data}  = await login(formData.value.email, formData.value.password);
 
-     console.log("data pasi", data.value.data.token);
-     if(data.value.data.token){
+     console.log("data pasi:", data);
+     if(data.token){
        await router.push('/authenticated/dashboard');
      }
 

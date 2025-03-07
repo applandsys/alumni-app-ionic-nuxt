@@ -1,25 +1,26 @@
+
+
 export const useAuth = () => {
-    const user = useState('user', () => null);
     const token = useState('token', () => null);
 
+    const { $api } = useNuxtApp();
     const login = async (email, password) => {
         try {
-            const { data, error } = await useFetch('/login', {
-                baseURL: 'http://127.0.0.1:8000/api/v1',
-                method: 'POST',
-                body: { email, password }
+            const {data} = await $api.post('/login', {
+                email, password
+            }).catch(()=>{
+                throw new Error(err);
             });
 
-            if (error.value) {
-                throw new Error(error.value.message);
+            // user.value = data?.data;
+
+            if(data?.data?.token){
+                token.value = data?.data?.token;
             }
 
-            user.value = data.user;
-            token.value = data.token;
+            localStorage.setItem('token', data?.data?.token);
 
-            localStorage.setItem('token', data.value.data.token);
-
-            return {data};
+            return {data:data?.data};
 
         } catch (err) {
             console.error("Login failed", err);
@@ -28,10 +29,9 @@ export const useAuth = () => {
     };
 
     const logout = () => {
-        user.value = null;
         token.value = null;
         localStorage.removeItem('token');
     };
 
-    return { user, token, login, logout };
+    return { token, login, logout };
 };

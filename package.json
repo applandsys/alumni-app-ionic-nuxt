@@ -17,6 +17,7 @@
     "@capacitor/keyboard": "7.0.0",
     "@capacitor/status-bar": "7.0.0",
     "@nuxtjs/ionic": "^0.16.0",
+    "axios": "^1.8.2",
     "nuxt": "^3.15.4",
     "vue": "latest",
     "vue-router": "latest"
