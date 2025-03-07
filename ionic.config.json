@@ -1,0 +1,7 @@
+{
+  "name": "Party-App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
