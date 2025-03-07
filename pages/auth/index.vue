@@ -1,18 +1,29 @@
 <script setup lang="ts">
   import { IonInput, IonItem, IonLabel  } from '@ionic/vue';
-  
+
+  const { login } = useAuth();
+  const router = useRouter();
+
+
 const formData = ref({
-  username: "",
+  email: "",
   password: ""
 });
 
-const handleSubmit = () =>{
-  if (formData.value.username && formData.value.password) {
-      console.log("Form Submitted!", formData.value.username);
-    } else {
-      console.log("Please fill in both fields.");
+
+  const handleLogin = async () => {
+    try {
+     const {data}  = await login(formData.value.email, formData.value.password);
+
+     console.log("data pasi", data.value.data.token);
+     if(data.value.data.token){
+       await router.push('/authenticated/dashboard');
+     }
+
+    } catch (error) {
+      alert('Login failed!');
     }
-}
+  };
 </script>
 
 <template>
@@ -22,11 +33,11 @@ const handleSubmit = () =>{
           <ion-text color="primary">
             <h1>Login</h1>
           </ion-text>
-            <form @submit.prevent="handleSubmit">
+            <form @submit.prevent="handleLogin">
        
             <ion-item>
               <ion-label position="stacked">Username</ion-label>
-              <ion-input v-model="formData.username" type="text" required></ion-input>
+              <ion-input v-model="formData.email" type="text" required></ion-input>
             </ion-item>
 
             <ion-item>
