@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { NuxtLink } from '#components';
-import { IonInput, IonItem, IonLabel  } from '@ionic/vue';
+  import { IonInput, IonItem, IonLabel  } from '@ionic/vue';
   import AuthLayout from '~/layouts/auth.vue';
 
   const { login } = useAuth();
@@ -31,10 +31,10 @@ const formData = ref({
 <template>
     <ion-page>
         <AuthLayout>
-          <template #tm-page-title>Sign In</template>
+          <template #tm-page-title>Sign Up</template>
           <template #tm-header-text>
-            <h1 class="title-text">Member Signin</h1>
-            <p>Sign up to continue</p>
+            <h1 class="title-text">Member Singup</h1>
+            <p>Join with us and build Bangladesh</p>
           </template>
           <div class="login_form">
               <form @submit.prevent="handleLogin">
@@ -46,7 +46,7 @@ const formData = ref({
                   <ion-label position="stacked">Password</ion-label>
                   <ion-input v-model="formData.password" type="password" required></ion-input>
                 </ion-item>
-                <ion-button expand="full" type="submit"  shape="round" color="success">Login</ion-button>
+                <ion-button expand="full" type="submit"  shape="round">Login</ion-button>
             </form>
 
               <div> Have an Account? <NuxtLink to="/auth/signup"> Signup now </NuxtLink></div>
