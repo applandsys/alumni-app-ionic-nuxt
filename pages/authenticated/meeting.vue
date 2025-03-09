@@ -18,26 +18,19 @@ if(!userData.user?.token){
 <template>
   <ion-page>
     <UserLayout>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button defaultHref="/authenticated/dashboard"></ion-back-button>
+          </ion-buttons>
+          <ion-title>Meeting</ion-title>
+        </ion-toolbar>
+      </ion-header>
       <ion-content>
         <ion-grid>
           <ion-row>
             <ion-col>
-              <div class="flex justify-between">
-                <div>
-                  <div v-if="userData?.user" class="block flex flex-col m-4">
-                    <ion-text class="text-2xl font-bold"> {{ userData?.user?.name }} </ion-text>
-                    <ion-text class="text-gray-900"> Join Secretary </ion-text>
-                  </div>
-                  <div class="bg-white p-1 rounded-3xl inline-block ml-4 px-4">
-                    <ion-text class="text-blue-700 text-sm">Uttara, Dhaka</ion-text>
-                  </div>
-                </div>
-                <div class="flex justify-end">
-                  <div class="p-1 mt-4 mr-4  rounded-full">
-                    <img :src="Profile" alt="Logo" width="64px">
-                  </div>
-                </div>
-              </div>
+              <div>Meeting</div>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -64,12 +57,10 @@ if(!userData.user?.token){
         <ion-grid>
           <ion-row>
             <ion-col>
-              <NuxtLink to="/authenticated/meeting">
-                <MenuItem>
-                  <IconClipboardPen :size="50" color="#ff5733"/>
-                  <ion-text class=" text-gray-700  text-sm">Meeting</ion-text>
-                </MenuItem>
-              </NuxtLink>
+              <MenuItem>
+                <IconClipboardPen :size="50" color="#ff5733"/>
+                <ion-text class=" text-gray-700  text-sm">Meeting</ion-text>
+              </MenuItem>
             </ion-col>
             <ion-col>
               <MenuItem>
