@@ -33,7 +33,9 @@ const navigateToLogin = () =>{
                  
                 </ion-card-header>
                 <ion-card-content>
-                    <ion-button   router-link="/auth" color="warning" expand="full" size="large" @click="navigateToLogin">Login</ion-button>
+                  <div class="mt-4">
+                    <ion-button expand="full" type="submit"  shape="round" @click="navigateToLogin" color="success">Start</ion-button>
+                  </div>
                 </ion-card-content>
                 </ion-col>
             </ion-row>

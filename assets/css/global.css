@@ -1,3 +1,14 @@
+@import "tailwindcss";
+
+ion-toolbar{
+    --background: rgb(203, 168, 123);
+  }
+
+  ion-back-button {
+    --color: #fff; /* Change to the color you want */
+  }
+  
+  
 .app-title{
     font-size: 1.2rem;
 }

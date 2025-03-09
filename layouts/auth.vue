@@ -28,7 +28,7 @@
   }
   ion-content {
     --background: rgb(123,203,140);
-    --background: linear-gradient(90deg, rgba(123,203,140,1) 0%, rgba(216,255,221,1) 35%);
+    --background: linear-gradient(90deg, rgba(123,203,140,1) 0%, rgb(167, 243, 177) 60%);
   }
 
   ion-button{

@@ -8,8 +8,10 @@
 
 
 const formData = ref({
+  name: "",
   email: "",
-  password: ""
+  password: "",
+  c_password: ""
 });
 
 
@@ -34,22 +36,30 @@ const formData = ref({
           <template #tm-page-title>Sign Up</template>
           <template #tm-header-text>
             <h1 class="title-text">Member Singup</h1>
-            <p>Join with us and build Bangladesh</p>
+            <p>Join  us and build a New Bangladesh</p>
           </template>
           <div class="login_form">
               <form @submit.prevent="handleLogin">
                 <ion-item>
-                  <ion-label position="stacked">Username</ion-label>
+                  <ion-label position="stacked">Name</ion-label>
+                  <ion-input v-model="formData.name" type="text" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="stacked">Email</ion-label>
                   <ion-input v-model="formData.email" type="text" required></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-label position="stacked">Password</ion-label>
                   <ion-input v-model="formData.password" type="password" required></ion-input>
                 </ion-item>
-                <ion-button expand="full" type="submit"  shape="round">Login</ion-button>
+                <ion-item>
+                  <ion-label position="stacked">Confirm Passord</ion-label>
+                  <ion-input v-model="formData.c_password" type="password" required></ion-input>
+                </ion-item>
+                <ion-button expand="full" type="submit"  shape="round" color="success">Sinup</ion-button>
             </form>
 
-              <div> Have an Account? <NuxtLink to="/auth/signup"> Signup now </NuxtLink></div>
+              <div class="m-4"> Already have an Account? <NuxtLink to="/auth"> Sing In </NuxtLink></div>
 
             </div>
         </AuthLayout>
@@ -58,9 +68,7 @@ const formData = ref({
 
 
 <style scoped>
-  ion-toolbar{
-    --background: rgb(123,203,140);
-  }
+ 
   ion-content {
     --background: rgb(123,203,140);
     --background: linear-gradient(90deg, rgba(123,203,140,1) 0%, rgba(216,255,221,1) 35%);

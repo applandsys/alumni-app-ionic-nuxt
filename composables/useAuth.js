@@ -1,9 +1,13 @@
+import { userStore } from "#imports";
 
 
 export const useAuth = () => {
     const token = useState('token', () => null);
 
+    const user = userStore();
+
     const { $api } = useNuxtApp();
+    
     const login = async (email, password) => {
         try {
             const {data} = await $api.post('/login', {
@@ -12,13 +16,7 @@ export const useAuth = () => {
                 throw new Error(err);
             });
 
-            // user.value = data?.data;
-
-            if(data?.data?.token){
-                token.value = data?.data?.token;
-            }
-
-            localStorage.setItem('token', data?.data?.token);
+            user.setUser(data?.data);
 
             return {data:data?.data};
 
