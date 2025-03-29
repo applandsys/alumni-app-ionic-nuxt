@@ -85,10 +85,12 @@ if(!userData.user?.token){
         <ion-grid>
           <ion-row>
             <ion-col>
-              <MenuItem>
-                <IconMail :size="50" color="#ff5733"/>
-                <ion-text class=" text-gray-700  text-sm">Messaging</ion-text>
-              </MenuItem>
+              <NuxtLink to="/authenticated/members">
+                <MenuItem>
+                  <IconMail :size="50" color="#ff5733"/>
+                  <ion-text class=" text-gray-700  text-sm">Messaging</ion-text>
+                </MenuItem>
+              </NuxtLink>
             </ion-col>
             <ion-col>
               <MenuItem>
