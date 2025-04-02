@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { userStore } from '#imports';
 import UserLayout from "~/layouts/UserLayout.vue";
+import { useUserStore } from '~/stores/userStore'
+
+const userStore = useUserStore();
 
 const { data : membersList, pending, error } = useApi('members');
 
@@ -20,7 +22,7 @@ const { data : membersList, pending, error } = useApi('members');
       <ion-content>
         <ion-list>
           <ion-item v-for="member in membersList" :key="member.id">
-            <ion-label>{{member.name}}</ion-label>
+            <ion-label><NuxtLink :to="{ name: 'authenticated-messaging-id', params: { id: member.id } }">{{member.name}}</NuxtLink></ion-label>
           </ion-item>
         </ion-list>
       </ion-content>

@@ -1,18 +1,7 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { userStore } from '#imports';
 import MenuItem from "~/components/menuItem.vue";
-import Profile from "~/assets/images/profile.png";
 import UserLayout from "~/layouts/UserLayout.vue";
 
-
-const router = useRouter();
-const userData = userStore();
-
-if(!userData.user?.token){
-  console.log('token nai');
-  await navigateTo({ path: '/' })
-}
 </script>
 
 <template>

@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { userStore } from '#imports';
+import { useUserStore } from '#imports';
 import MenuItem from "~/components/menuItem.vue";
 import Profile from "~/assets/images/profile.png";
 import UserLayout from "~/layouts/UserLayout.vue";
 
-
 const router = useRouter();
-const userData = userStore();
+const userStore = useUserStore();
+const user = userStore.getUser;
 
-if(!userData.user?.token){
-  console.log('token nai');
+console.log("User Data  in Dashboard: ",user.token);
+
+console.log("User Data  in Dashboard without getter: ",userStore.user.name);
+
+if(!user?.token){
+  console.log('token nai Dashbaord');
   await navigateTo({ path: '/' })
 }
 </script>
@@ -24,8 +28,8 @@ if(!userData.user?.token){
             <ion-col>
               <div class="flex justify-between">
                 <div>
-                  <div v-if="userData?.user" class="block flex flex-col m-4">
-                    <ion-text class="text-2xl font-bold"> {{ userData?.user?.name }} </ion-text>
+                  <div v-if="user" class="block flex flex-col m-4">
+                    <ion-text class="text-2xl font-bold"> {{ user.name }} </ion-text>
                     <ion-text class="text-gray-900"> Join Secretary </ion-text>
                   </div>
                   <div class="bg-white p-1 rounded-3xl inline-block ml-4 px-4">

@@ -1,27 +1,28 @@
 <script setup lang="ts">
-  import { NuxtLink } from '#components';
+import { NuxtLink } from '#components';
 import { IonInput, IonItem, IonLabel  } from '@ionic/vue';
-  import AuthLayout from '~/layouts/auth.vue';
+import AuthLayout from '~/layouts/auth.vue';
+import { useUserStore } from '~/stores/userStore';
 
   const { login } = useAuth();
   const router = useRouter();
 
+const userStore = useUserStore();
 
-const formData = ref({
-  email: "",
-  password: ""
-});
+  const formData = ref({
+    email: "",
+    password: ""
+  });
 
 
   const handleLogin = async () => {
     try {
      const {data}  = await login(formData.value.email, formData.value.password);
-
      console.log("data pasi:", data);
      if(data.token){
+       userStore.setUser(data);
        await router.push('/authenticated/dashboard');
      }
-
     } catch (error) {
       alert('Login failed!');
     }

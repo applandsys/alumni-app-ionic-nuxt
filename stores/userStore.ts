@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const userStore = defineStore('user', {
+export const useUserStore = defineStore('user', {
   state: () => ({
     user: {},  // You can initialize it as null or an empty object
   }),
@@ -16,4 +16,5 @@ export const userStore = defineStore('user', {
       this.user = userData;  // Set the user data in the state
     },
   },
+  persist: true, // Enables persistent storage (localStorage)
 });

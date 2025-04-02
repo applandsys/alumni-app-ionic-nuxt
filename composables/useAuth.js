@@ -1,10 +1,9 @@
-import { userStore } from "#imports";
-
+import { useUserStore } from "#imports";
 
 export const useAuth = () => {
     const token = useState('token', () => null);
 
-    const user = userStore();
+    const user = useUserStore();
 
     const { $api } = useNuxtApp();
     
@@ -15,7 +14,6 @@ export const useAuth = () => {
             }).catch(()=>{
                 throw new Error(err);
             });
-
             user.setUser(data?.data);
 
             return {data:data?.data};
