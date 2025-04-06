@@ -3,31 +3,31 @@
   import { IonInput, IonItem, IonLabel  } from '@ionic/vue';
   import AuthLayout from '~/layouts/auth.vue';
 
-  const { login } = useAuth();
-  const router = useRouter();
+  const { $api } = useNuxtApp();
+
+  const formData = ref({
+    name: "",
+    email: "",
+    password: "",
+    c_password: ""
+  });
+
+const divisions = ref([]);
+
+const getDivision = async () => {
+        try {
+            const {data} = await $api.get('/locations/division');
+            divisions.value = data;
+        } catch (err) {
+            console.error("Error: ", err);
+        }
+    };
+
+    onMounted(()=>{
+      getDivision();
+    });
 
 
-const formData = ref({
-  name: "",
-  email: "",
-  password: "",
-  c_password: ""
-});
-
-
-  const handleLogin = async () => {
-    try {
-     const {data}  = await login(formData.value.email, formData.value.password);
-
-     console.log("data pasi:", data);
-     if(data.token){
-       await router.push('/authenticated/dashboard');
-     }
-
-    } catch (error) {
-      alert('Login failed!');
-    }
-  };
 </script>
 
 <template>
@@ -56,6 +56,13 @@ const formData = ref({
                   <ion-label position="stacked">Confirm Passord</ion-label>
                   <ion-input v-model="formData.c_password" type="password" required></ion-input>
                 </ion-item>
+
+                <ion-item>
+                    <ion-select label="Division">
+                      <ion-select-option :value="division.id" v-for="division in divisions?.divisions" :key="division.id">{{ division.name }}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+
                 <ion-button expand="full" type="submit"  shape="round" color="success">Sinup</ion-button>
             </form>
 

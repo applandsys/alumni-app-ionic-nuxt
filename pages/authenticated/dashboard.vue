@@ -9,9 +9,6 @@ const router = useRouter();
 const userStore = useUserStore();
 const user = userStore.getUser;
 
-console.log("User Data  in Dashboard: ",user.token);
-
-console.log("User Data  in Dashboard without getter: ",userStore.user.name);
 
 if(!user?.token){
   console.log('token nai Dashbaord');
