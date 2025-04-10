@@ -13,8 +13,6 @@ const userStore = useUserStore();
     email: "",
     password: ""
   });
-
-
   const handleLogin = async () => {
     try {
      const {data}  = await login(formData.value.email, formData.value.password);

@@ -13,8 +13,8 @@ export const useUserStore = defineStore('user', {
 
   actions: {
     setUser(userData: Object) {
-      this.user = userData;  // Set the user data in the state
+      this.user = userData;
     },
   },
-  persist: true, // Enables persistent storage (localStorage)
+  persist: true,
 });

@@ -9,22 +9,33 @@ definePageMeta({
 const route = useRoute();
 const memberId = route.params.id;
 
-console.log("params",route.params.id);
+const { data : memberDetail, pending, error } = useApi(`member-detail/${memberId}`);
+
 </script>
 
 <template>
   <ion-page>
-    <UserLayout>
+    <UserLayout :is-toolbar="false">
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
             <ion-back-button defaultHref="/authenticated/dashboard"></ion-back-button>
           </ion-buttons>
-          <ion-title>Members</ion-title>
+          <div class="flex justify-end items-center">
+            <div class="text-black px-2 flex justify-end text-right">
+              <div class="w-3 h-3 bg-green-500 rounded-full mx-1 items-center mt-1 font-bold"></div> {{memberDetail.name}}
+            </div>
+            <div class="w-10 h-10 bg-amber-700 rounded-full flex justify-center items-center text-white mr-2">U</div>
+          </div>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <div>Member ID: {{memberId}}</div>
+<!--        <div class="bg-green-800 p-2 flex items-center">-->
+<!--          <div class="w-10 h-10 bg-amber-700 rounded-full flex justify-center items-center text-white mr-2">U</div>-->
+<!--          <div class="text-white">-->
+<!--            Member ID: {{memberId}} (online)-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="w-full p-2">
           <div class="overflow-y-auto h-96">
             <div class="flex items-start space-x-4 my-4">
@@ -48,18 +59,25 @@ console.log("params",route.params.id);
               </div>
             </div>
           </div>
-          <!-- Chat Input Form -->
-          <div class="flex items-center p-4 rounded-b-lg">
-            <input type="text" placeholder="Type a message..." class="w-full bg-gray-200 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button class="ml-3 p-2 ">
-              <IconPaperclip/>
-            </button>
-            <button class="ml-3 p-2">
-              <IconSend/>
-            </button>
-          </div>
         </div>
-
+          <div class="absolute bottom-0 w-full bg-orange-500 p-2">
+            <div class="flex items-center gap-2">
+              <!-- Input takes up remaining space -->
+              <IconPlusCircle/>
+              <input
+                  type="text"
+                  placeholder="Type a message..."
+                  class="flex-1 bg-gray-200 text-red-500 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <!-- Right-aligned icons -->
+              <button class="p-2">
+                <IconPaperclip />
+              </button>
+              <button class="p-2">
+                <IconSend />
+              </button>
+            </div>
+          </div>
       </ion-content>
     </UserLayout>
   </ion-page>

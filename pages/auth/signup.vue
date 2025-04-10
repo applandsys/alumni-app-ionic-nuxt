@@ -1,10 +1,14 @@
 <script setup lang="ts">
-  import { NuxtLink } from '#components';
+import { NuxtLink } from '#components';
 import { IonPage,  IonSelect, IonSelectOption } from '@ionic/vue'
-  import AuthLayout from '~/layouts/auth.vue';
+import AuthLayout from '~/layouts/auth.vue';
+import { useUserStore } from '~/stores/userStore';
 
-  const { $api } = useNuxtApp();
+const { $api } = useNuxtApp();
+const router = useRouter();
+const { signup } = useAuth();
 
+const userStore = useUserStore();
 const divisions = ref([]);
 const districts = ref([]);
 const subdistricts = ref([]);
@@ -15,13 +19,22 @@ const selectedDistrict = ref(null);
 const selectedSubDistrict = ref(null);
 const selectedUnion = ref(null);
 
-const formData = ref({
+const formData = reactive({
     name: "",
     email: "",
     password: "",
     c_password: ""
   });
 
+const formSubmitData =  computed(()=>{
+  return {
+    ...formData,
+    division: selectedDivision.value,
+    district: selectedDistrict.value,
+    sub_district: selectedSubDistrict.value,
+    union: selectedUnion.value
+  }
+});
 const getDivision = async () => {
         try {
             const {data} = await $api.get('/locations/division');
@@ -31,11 +44,9 @@ const getDivision = async () => {
         }
     };
 
-
 onMounted(()=>{
   getDivision();
 });
-
 
 watch(selectedDivision, async (divisionId) => {
     try {
@@ -64,9 +75,18 @@ watch(selectedSubDistrict, async (subDistrictId) => {
       }
 });
 
-
-
-
+  const handleSignup = async () => {
+    try {
+      const {data}  = await signup(formSubmitData.value);
+      console.log("data pasi:", data);
+      if(data.token){
+        userStore.setUser(data);
+        await router.push('/authenticated/dashboard');
+      }
+    } catch (error) {
+      alert('Signup failed!');
+    }
+  };
 </script>
 
 <template>
@@ -74,11 +94,12 @@ watch(selectedSubDistrict, async (subDistrictId) => {
         <AuthLayout>
           <template #tm-page-title>Sign Up</template>
           <template #tm-header-text>
+            {{formSubmitData}}
             <h1 class="title-text">Member Singup</h1>
             <p>Join  us and build a New Bangladesh</p>
           </template>
           <div class="login_form">
-              <form @submit.prevent="handleLogin">
+              <form @submit.prevent="handleSignup">
                 <ion-item>
                   <ion-label position="stacked">Name</ion-label>
                   <ion-input v-model="formData.name" type="text" required></ion-input>

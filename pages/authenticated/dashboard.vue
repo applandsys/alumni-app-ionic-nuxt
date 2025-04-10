@@ -18,7 +18,7 @@ if(!user?.token){
 
 <template>
   <ion-page>
-    <UserLayout>
+    <UserLayout :is-toolbar="true">
       <ion-content>
         <ion-grid>
           <ion-row>
