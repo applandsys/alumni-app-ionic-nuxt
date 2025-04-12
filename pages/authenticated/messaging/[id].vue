@@ -1,15 +1,62 @@
 <script setup lang="ts">
 import UserLayout from "~/layouts/UserLayout.vue";
 import { useRoute } from 'vue-router';
+import {useUserStore} from "~/stores/userStore";
 
 definePageMeta({
   name: 'authenticated-messaging-id'
-})
+});
 
+const { $api } = useNuxtApp();
+
+const userStore = useUserStore();
+const user = userStore.getUser;
 const route = useRoute();
 const memberId = route.params.id;
 
+const showMessageList = ref([]);
+
+const formData = reactive({
+  from_user_id: user.user.id,
+  to_user_id: memberId,
+  message: "",
+  type: "text"
+});
+
 const { data : memberDetail, pending, error } = useApi(`member-detail/${memberId}`);
+
+const showMessage = async () => {
+  try {
+    const { data } = await $api.get(`/messenger/show/${formData.from_user_id}/${memberId}`);
+
+    const sortedMessages = data.message.sort((a, b) => {
+      return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+    });
+
+    showMessageList.value = sortedMessages;
+  } catch (err) {
+    console.error("Show failed", err);
+    return { err };
+  }
+}
+
+const handleSend = async () => {
+  try {
+    const {data} = await $api.post('/messenger/create', formData).catch((err)=>{
+      throw new Error(err);
+    });
+
+    showMessageList.value.push(formData);
+
+  } catch (err) {
+    console.error("signup failed", err);
+    return {err};
+  }
+};
+
+setInterval(()=>{
+  showMessage();
+},5000);
 
 </script>
 
@@ -21,43 +68,50 @@ const { data : memberDetail, pending, error } = useApi(`member-detail/${memberId
           <ion-buttons slot="start">
             <ion-back-button defaultHref="/authenticated/dashboard"></ion-back-button>
           </ion-buttons>
-          <div class="flex justify-end items-center">
+          <div class="flex justify-end items-center" v-if="memberDetail">
             <div class="text-black px-2 flex justify-end text-right">
-              <div class="w-3 h-3 bg-green-500 rounded-full mx-1 items-center mt-1 font-bold"></div> {{memberDetail.name}}
+              <div class="w-3 h-3 bg-green-500 rounded-full mx-1 items-center mt-1 font-bold"></div> {{memberDetail?.name}}
             </div>
             <div class="w-10 h-10 bg-amber-700 rounded-full flex justify-center items-center text-white mr-2">U</div>
           </div>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-<!--        <div class="bg-green-800 p-2 flex items-center">-->
-<!--          <div class="w-10 h-10 bg-amber-700 rounded-full flex justify-center items-center text-white mr-2">U</div>-->
-<!--          <div class="text-white">-->
-<!--            Member ID: {{memberId}} (online)-->
-<!--          </div>-->
-<!--        </div>-->
+
         <div class="w-full p-2">
           <div class="overflow-y-auto h-96">
-            <div class="flex items-start space-x-4 my-4">
-              <div class="w-10 h-10 bg-blue-500 rounded-full flex justify-center items-center text-white">U</div>
-              <div class="bg-blue-100 p-3 rounded-lg text-sm w-3/5">
-                <p>Hello! How can I assist you today?</p>
-              </div>
-            </div>
 
-            <div class="flex items-end space-x-4 justify-end my-4">
-              <div class="bg-gray-100 p-3 rounded-lg text-sm w-3/5">
-                <p>Hi, I need help with my order.</p>
-              </div>
-              <div class="w-10 h-10 bg-gray-500 rounded-full flex justify-center items-center text-white">Me</div>
-            </div>
 
-            <div class="flex items-start space-x-4 my-4">
-              <div class="w-10 h-10 bg-blue-500 rounded-full flex justify-center items-center text-white">U</div>
-              <div class="bg-blue-100 p-3 rounded-lg text-sm w-3/5">
-                <p>Sure, can you provide me with your order number?</p>
+            <transition-group
+                name="fade-slide"
+                tag="div"
+                class="overflow-y-auto h-96"
+            >
+              <div v-for="message in showMessageList" :key="message.id" class="message-bubble">
+                <!-- Message from the other person -->
+                <div
+                    class="flex items-start space-x-4 my-2"
+                    v-if="message.from_user_id != user.user.id"
+                >
+                  <div class="w-8 h-8 bg-blue-500 rounded-full flex justify-center items-center text-white text-xs">U</div>
+                  <div class="bg-blue-100 p-2 rounded-lg text-sm max-w-xs break-words">
+                    <p>{{ message.message }}</p>
+                  </div>
+                </div>
+
+                <!-- Message from the logged-in user -->
+                <div
+                    class="flex items-end space-x-4 justify-end my-2"
+                    v-else
+                >
+                  <div class="bg-gray-200 p-2 rounded-lg text-sm max-w-xs break-words text-right">
+                    <p>{{ message.message }}</p>
+                  </div>
+                  <div class="w-8 h-8 bg-gray-600 rounded-full flex justify-center items-center text-white text-xs">Me</div>
+                </div>
               </div>
-            </div>
+            </transition-group>
+
           </div>
         </div>
           <div class="absolute bottom-0 w-full bg-orange-500 p-2">
@@ -67,13 +121,14 @@ const { data : memberDetail, pending, error } = useApi(`member-detail/${memberId
               <input
                   type="text"
                   placeholder="Type a message..."
+                  v-model="formData.message"
                   class="flex-1 bg-gray-200 text-red-500 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <!-- Right-aligned icons -->
               <button class="p-2">
                 <IconPaperclip />
               </button>
-              <button class="p-2">
+              <button class="p-2" @click="handleSend">
                 <IconSend />
               </button>
             </div>
