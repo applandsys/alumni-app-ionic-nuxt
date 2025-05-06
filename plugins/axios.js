@@ -1,4 +1,4 @@
-// plugins/axios.js
+
 import axios from 'axios';
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -8,3 +8,6 @@ export default defineNuxtPlugin(nuxtApp => {
 
     nuxtApp.provide('api', api);
 });
+
+
+// https://dev.multiwaybd.com/

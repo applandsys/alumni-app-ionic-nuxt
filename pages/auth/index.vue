@@ -3,6 +3,7 @@ import { NuxtLink } from '#components';
 import { IonInput, IonItem, IonLabel  } from '@ionic/vue';
 import AuthLayout from '~/layouts/auth.vue';
 import { useUserStore } from '~/stores/userStore';
+import {getSavedPassword, saveLoginInfo} from '~/composables/saveLoginInfo';
 
   const { login } = useAuth();
   const router = useRouter();
@@ -10,19 +11,30 @@ import { useUserStore } from '~/stores/userStore';
 const userStore = useUserStore();
 
   const formData = ref({
-    email: "",
-    password: ""
+    email:  "",
+    password:  ""
   });
+
+async function loadCredentials() {
+  const { username, password } = await getSavedPassword();
+  console.log(username, password);
+  formData.value.email = username && username;
+  formData.value.password = password;
+}
+
+loadCredentials();
+
+
   const handleLogin = async () => {
     try {
      const {data}  = await login(formData.value.email, formData.value.password);
-     console.log("data pasi:", data);
      if(data.token){
        userStore.setUser(data);
-       await router.push('/authenticated/dashboard');
+       await saveLoginInfo(formData.value.email, formData.value.password);
+       await router.push('/authenticated/home');
      }
     } catch (error) {
-      alert('Login failed!');
+      console.log("Login erro:",error);
     }
   };
 </script>
@@ -30,12 +42,14 @@ const userStore = useUserStore();
 <template>
     <ion-page>
         <AuthLayout>
-          <template #tm-page-title>Sign In</template>
-          <template #tm-header-text>
-            <h1 class="title-text">Member Signin</h1>
-            <p>Got to Member area to continue</p>
-          </template>
-          <div class="login_form">
+          <template #tm-page-title>Sign in</template>
+          <div class="flex flex-col  items-center  h-screen mx-auto">
+            <div class="login_form text-center">
+              <div class="mb-4">
+                <h1 class="title-text"> Sign in</h1>
+                <p>Continue with sign in info</p>
+                <hr/>
+              </div>
               <form @submit.prevent="handleLogin">
                 <ion-item>
                   <ion-label position="stacked">Email</ion-label>
@@ -46,21 +60,16 @@ const userStore = useUserStore();
                   <ion-input v-model="formData.password" type="password" required></ion-input>
                 </ion-item>
                 <ion-button expand="full" type="submit"  shape="round" color="success">Login</ion-button>
-            </form>
-
+              </form>
               <div class="m-4"> Have an Account? <NuxtLink to="/auth/signup"> Signup now </NuxtLink></div>
-
             </div>
+          </div>
         </AuthLayout>
     </ion-page>
 </template>
 
 
 <style scoped>
-  ion-content {
-    --background: rgb(123,203,140);
-    --background: linear-gradient(90deg, rgba(123,203,140,1) 0%, rgba(216,255,221,1) 35%);
-  }
 
   .login_form{
     padding: 20px;
@@ -73,9 +82,7 @@ const userStore = useUserStore();
   ion-item {
     margin-bottom: 16px;
   }
-  .header-text{
-    padding: 32px;
-  }
+
   .title-text{
     font-weight: 700;
   }

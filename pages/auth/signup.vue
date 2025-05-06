@@ -94,8 +94,7 @@ watch(selectedSubDistrict, async (subDistrictId) => {
         <AuthLayout>
           <template #tm-page-title>Sign Up</template>
           <template #tm-header-text>
-            {{formSubmitData}}
-            <h1 class="title-text">Member Singup</h1>
+            <h1 class="title-text">Member Sing up</h1>
             <p>Join  us and build a New Bangladesh</p>
           </template>
           <div class="login_form">

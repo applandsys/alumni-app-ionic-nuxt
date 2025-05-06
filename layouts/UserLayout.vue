@@ -21,39 +21,51 @@ const handleLogout = () => {
     <div v-if="props.isToolbar">
       <ion-footer>
         <ion-toolbar>
-          <div class="flex flex-1 justify-around rounded-t-xl bg-amber-50 p-1">
+          <div class="flex flex-1 justify-between rounded-t-xl bg-amber-50 py-2 px-2">
 
-            <div class="flex flex-col items-center justify-center p-2" >
-              <IconHome/>
-              <ion-label class="tab-label">Home</ion-label>
-            </div>
+            <NuxtLink to="/authenticated/home">
+              <div class="flex flex-col items-center justify-center" >
+                <IconHome/>
+                <ion-label class="tab-label">Home</ion-label>
+              </div>
+           </NuxtLink>
+          
+            <NuxtLink to="/authenticated/dashboard">
+              <div class="flex flex-col items-center justify-center" >
+                <IconFolder/>
+                <ion-label class="tab-label">Info</ion-label>
+              </div>
+            </NuxtLink>
 
-            <!--          <VerticalSeparator color="#ccc"/>-->
 
+            <NuxtLink to="/authenticated/dashboard">
             <div class="flex flex-col items-center justify-center" >
-              <IconUser/>
-              <ion-label class="tab-label">Profile</ion-label>
+              <IconShoppingBasket/>
+              <ion-label class="tab-label">Mart</ion-label>
             </div>
+            </NuxtLink>
+
+            <NuxtLink to="/authenticated/dashboard">
+              <div class="flex flex-col items-center justify-center" >
+                <IconFish/>
+                <ion-label class="tab-label">Food</ion-label>
+              </div>
+            </NuxtLink>
+
+            <NuxtLink to="/authenticated/dashboard">
+              <div class="flex flex-col items-center justify-center" >
+                <IconUser/>
+                <ion-label class="tab-label">Profile</ion-label>
+              </div>
+            </NuxtLink>
 
             <!--          <VerticalSeparator color="#ccc"/>-->
-
-            <div class="flex flex-col items-center justify-center" >
-              <IconPlusCircle/>
-            </div>
-
-            <!--          <VerticalSeparator color="#ccc"/>-->
-
-            <div class="flex flex-col items-center justify-center" >
-              <IconBell/>
-              <ion-label class="tab-label">Notify</ion-label>
-            </div>
-
-            <!--          <VerticalSeparator color="#ccc"/>-->
-
-            <div class="flex flex-col items-center justify-center" @click="handleLogout">
-              <IconLogOut/>
-              <ion-label class="tab-label">Logout</ion-label>
-            </div>
+            <NuxtLink to="/authenticated/dashboard">
+              <div class="flex flex-col items-center justify-center" @click="handleLogout">
+                <IconLogOut/>
+                <ion-label class="tab-label">Logout</ion-label>
+              </div>
+            </NuxtLink>
           </div>
         </ion-toolbar>
       </ion-footer>
