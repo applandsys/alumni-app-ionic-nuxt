@@ -19,6 +19,8 @@ import PoliticianIcon from "~/assets/images/politician.png";
 import WeatherIcon from "~/assets/images/atmospheric-conditions.png";
 import HotelIcon from "~/assets/images/hotel.png";
 import UserLayout from "~/layouts/UserLayout.vue";
+import CommunicationIcon from "~/assets/images/communication.png";
+import EventIcon from "~/assets/images/communication.png";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -60,6 +62,25 @@ if(!user?.token){
 
         
         <div class="border-b-green-300 border-1 mx-2 mt-4"> </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="ml-4 text-2xl font-bold mt-5 text-amber-800">ব্যবস্থাপনা</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="flex justify-start item-center m-1">
+                <MenuItem :image="CommunicationIcon" title="যোগাযোগ" href="/authenticated/members"/>
+                <MenuItem :image="EventIcon" title=" মিটিং / ইভেন্ট" href="/authenticated/info/event" />
+                <MenuItem :image="DoctorIcon" title="স্বাস্থ্য সেবা" href="/authenticated/info/healthcare" />
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
 
         <ion-grid>
           <ion-row>

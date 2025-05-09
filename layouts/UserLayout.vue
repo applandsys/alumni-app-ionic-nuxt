@@ -21,10 +21,10 @@ const handleLogout = () => {
     <div v-if="props.isToolbar">
       <ion-footer>
         <ion-toolbar>
-          <div class="flex flex-1 justify-between rounded-t-xl bg-amber-50 py-2 px-2">
+          <div class="flex flex-1 justify-around rounded-t-xl bg-amber-50 py-2 px-2">
 
             <NuxtLink to="/authenticated/home">
-              <div class="flex flex-col items-center justify-center" >
+              <div class="flex flex-col items-center justify-center " >
                 <IconHome/>
                 <ion-label class="tab-label">Home</ion-label>
               </div>
@@ -60,12 +60,12 @@ const handleLogout = () => {
             </NuxtLink>
 
             <!--          <VerticalSeparator color="#ccc"/>-->
-            <NuxtLink to="/authenticated/dashboard">
-              <div class="flex flex-col items-center justify-center" @click="handleLogout">
-                <IconLogOut/>
-                <ion-label class="tab-label">Logout</ion-label>
-              </div>
-            </NuxtLink>
+<!--            <NuxtLink to="/authenticated/dashboard">-->
+<!--              <div class="flex flex-col items-center justify-center" @click="handleLogout">-->
+<!--                <IconLogOut/>-->
+<!--                <ion-label class="tab-label">Logout</ion-label>-->
+<!--              </div>-->
+<!--            </NuxtLink>-->
           </div>
         </ion-toolbar>
       </ion-footer>

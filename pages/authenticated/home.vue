@@ -34,15 +34,15 @@ const formData = ref({
             <ion-grid>
                 <ion-row>
                     <ion-col>
+                      <NuxtLink to="/authenticated/social/create">
                         <div class="px-4 py-2">
-                            <div type="submit" class="bg-gray-100 text-gray-900 w-full p-4 rounded-md" >
-                                গুরুত্বপূর্ণ তথ্য পোস্ট করুন
+                            <div type="submit" class=" flex justify-between bg-gray-100 text-gray-900 w-full p-4 rounded-md" >
+                                গুরুত্বপূর্ণ তথ্য পোস্ট করুন <IconPlus/>
                             </div>
                             <hr/>
                           <SocialPost/>
-
-                            
                         </div>
+                      </NuxtLink>
                     </ion-col>
                 </ion-row>
             </ion-grid>
