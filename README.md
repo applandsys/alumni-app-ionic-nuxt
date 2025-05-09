@@ -82,3 +82,8 @@ Run ```npx cap sync``` to update your Capacitor project directories with your la
 Run ```npx cap run android``` or ```npx cap run ios``` to run the app from the command line using an installed device OR
 (Optional) Run ```npx cap open android``` or ```npx cap open ios``` to open the project in Android Studio or XCode, respectively.
 Remember to ````run npx cap sync``` after every new build to ensure your Android and/or iOS project is up-to-date.
+
+
+### Nuxt tailwind css
+
+```https://tailwindcss.com/docs/installation/framework-guides/nuxt```

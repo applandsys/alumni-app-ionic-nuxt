@@ -13,28 +13,29 @@ const navigateToLogin = () =>{
         <div class="centered-content">
           <div class="oval">
           </div>
-          <div class="content-part">
+          <div class="content-part  ">
             <ion-row>
+
               <ion-col size-md="3" size="12" class="ion-padding ion-blue-bkg">
               </ion-col>
-              <ion-col size-md="9" size="12" class="welcome">
-                <ion-card-header>
 
-                  <ion-card-title> 
-                    <ion-text color="default">
-                     <div class="app-title text-center color-white">বাংলাদেশ রাজনৈতিক দল </div>
-                     <div class="app-title mb-10  text-center color-white">Bangladesh Political  Party</div>
-                    </ion-text>
-                    <ion-text color="default">
-                       <div class="small-text">A major political party in Bangladesh. Founded on 1 September
-                         1978 by Bangladesh </div>
-                    </ion-text>
-                  </ion-card-title>
-                 
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-button   router-link="/auth" color="warning" expand="full" size="large" @click="navigateToLogin">Login</ion-button>
-                </ion-card-content>
+              <ion-col size-md="9" size="12" class="welcome">
+                 <div class="flex flex-col justify-around items-center  h-screen mx-auto">
+                   <div >
+                     <ion-text color="default">
+                       <div class="app-title text-center color-white">স্মার্ট বাংলাদেশ</div>
+                       <div class="app-title mb-10  text-center color-white">Digitalizing Bangladesh</div>
+                     </ion-text>
+                   </div>
+                   <div >
+                     <ion-text color="default">
+                       <div class="small-text">সমগ্র বাংলাদেশের জন্য একটি ডিজিটালাইজেশন অ্যাপস </div>
+                     </ion-text>
+                   </div>
+                   <div >
+                     <ion-button expand="full" type="submit"  shape="round" @click="navigateToLogin" color="success">Start</ion-button>
+                   </div>
+                 </div>
                 </ion-col>
             </ion-row>
           </div>

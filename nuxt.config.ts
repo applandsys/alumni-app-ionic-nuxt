@@ -1,8 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
-  devtools: { enabled: true },
-  modules: ['@nuxtjs/ionic'],
+  devtools: { enabled: false },
+  modules: ['@nuxtjs/ionic', '@pinia/nuxt', 'nuxt-lucide-icons'],
+  lucide: {
+    namePrefix: 'Icon'
+  },
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://127.0.0.1:8000/api/v1',
+    },
+  },
   ssr: false,
   css: [
     '@/assets/css/global.css', // your custom CSS file
@@ -10,5 +21,10 @@ export default defineNuxtConfig({
   ],
   build: {
     transpile: ['@ionic/vue'] // Transpile Ionic Vue components
+  },
+  vite: {
+    plugins: [
+      tailwindcss(),
+    ],
   }
 })

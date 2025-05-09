@@ -1,3 +1,21 @@
+@import "tailwindcss";
+
+ion-toolbar{
+    --background: rgb(123,203,140);
+}
+ion-content {
+    --background: linear-gradient(90deg, rgba(123,203,140,1) 0%, rgb(167, 243, 177) 60%);
+}
+
+ion-back-button {
+    --color: #fff; /* Change to the color you want */
+}
+
+ion-card{
+    border-radius: 10px;
+}
+  
+  
 .app-title{
     font-size: 1.2rem;
 }
@@ -23,3 +41,4 @@
 .color-white{
     color: #fff;
 }
+
