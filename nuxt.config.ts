@@ -1,5 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
@@ -11,7 +9,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://127.0.0.1:8000/api/v1',
+      apiBase: process.env.API_URL || '127.0.0.1:8000/api/v1',
+      imageBase:  process.env.IMAGE_URL || '127.0.0.1:8000',
     },
   },
   ssr: false,
@@ -28,3 +27,6 @@ export default defineNuxtConfig({
     ],
   }
 })
+
+// 127.0.0.1:8000/api/v1
+// 127.0.0.1:8000

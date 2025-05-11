@@ -77,7 +77,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 ### To build, sync, and run your app:
 
-Create a web build with ```npx nuxi generate``` or ````npx nuxi build```.
+Create a web build with ```npx nuxi generate``` or ```npx nuxi build```.
 Run ```npx cap sync``` to update your Capacitor project directories with your latest app build.
 Run ```npx cap run android``` or ```npx cap run ios``` to run the app from the command line using an installed device OR
 (Optional) Run ```npx cap open android``` or ```npx cap open ios``` to open the project in Android Studio or XCode, respectively.

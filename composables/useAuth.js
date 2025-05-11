@@ -8,13 +8,12 @@ export const useAuth = () => {
         try {
             const {data} = await $api.post('/login', {
                 email, password
-            }).catch(()=>{
+            }).catch((err)=>{
                 throw new Error(err);
             });
             user.setUser(data?.data);
             return {data:data?.data};
         } catch (err) {
-            console.error("Login failed", err);
             return {err};
         }
     };

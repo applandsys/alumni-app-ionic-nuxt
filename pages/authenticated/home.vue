@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import MenuItem from "~/components/menuItem.vue";
 import UserLayout from "~/layouts/UserLayout.vue";
 import Profile from "~/assets/images/profile.png";
-import { IconHardDriveUpload } from "#components";
 import SocialPost from "~/components/socialpost";
 
-const formData = ref({
-    search: "",
-  });
+ const { data: allPost, status, error, refresh, clear } = useApi('social/show-all');
+
+ refresh();
+
 </script>
 
 <template>
@@ -40,7 +39,7 @@ const formData = ref({
                                 গুরুত্বপূর্ণ তথ্য পোস্ট করুন <IconPlus/>
                             </div>
                             <hr/>
-                          <SocialPost/>
+                          <SocialPost :post-list="allPost"/>
                         </div>
                       </NuxtLink>
                     </ion-col>

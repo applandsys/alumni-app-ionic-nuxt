@@ -1,22 +1,16 @@
-<script>
-
+<script setup lang="ts">
 import Profile from "assets/images/profile.png";
-import {defineComponent} from "vue";
 
-export default defineComponent({
-  computed: {
-    Profile() {
-      return Profile
-    }
-  }
-})
+const props = defineProps(['postList']);
+const config = useRuntimeConfig();
+
+
 
 </script>
 
 <template>
-  <ion-card class="mt-2 p-2 w-full" >
+  <ion-card class="mt-2 p-2 w-full" v-for="post in props?.postList?.data?.allpost" :key="post.id">
   <div class="max-w-md mx-auto border border-gray-200 shadow-lg rounded-lg bg-white">
-
     <div class="flex justify-between">
       <div>
         <div class="flex items-center space-x-3">
@@ -25,7 +19,7 @@ export default defineComponent({
           </div>
 
           <div class="flex-1">
-            <h2 class="font-bold text-sm text-gray-900">Smart Narail</h2>
+            <h2 class="font-bold text-sm text-gray-900">{{post.user.name}}</h2>
             <p class="text-xs text-gray-500">11:35 am, 03/12/25</p>
           </div>
         </div>
@@ -36,10 +30,10 @@ export default defineComponent({
     </div>
 
     <div class="mt-4">
-      <p class="text-gray-900 text-sm">ট্রেন একটা, নাম টুটুল। সকাল বেলা জামালাবাদ এক্সপ্রেস খুলনা থেকে ঢাকা যাচ্ছে, ঢাকা গিয়ে নাম হবে রংপুর বাংলা এক্সপ্রেস, ছোটো ফেরি বেলাবো আরে...</p>
+      <p class="text-gray-900 text-sm">{{post.post_content}}</p>
     </div>
     <div class="mt-3">
-      <img src="https://placehold.co/400" alt="Post Image" class="rounded-lg w-full">
+      <img :src="`${config.public.imageBase}/social_post/${post.post_image}`" alt="Post Image" class="rounded-lg w-full">-->
     </div>
 
     <div class="flex justify-between">

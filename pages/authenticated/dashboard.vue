@@ -60,7 +60,8 @@ if(!user?.token){
           </ion-row>
         </ion-grid>
 
-        
+
+        <!--
         <div class="border-b-green-300 border-1 mx-2 mt-4"> </div>
         <ion-grid>
           <ion-row>
@@ -81,6 +82,7 @@ if(!user?.token){
             </ion-col>
           </ion-row>
         </ion-grid>
+        -->
 
         <ion-grid>
           <ion-row>

@@ -3,10 +3,20 @@
 import UserLayout from "~/layouts/UserLayout.vue";
 import SearchInput from "~/components/ui/search-input.vue";
 import BloodnoderList from "~/components/info/bloodnoder-list.vue";
+import {useUserStore} from "~/stores/userStore";
+const { $api } = useNuxtApp();
 
-const formData = ref({
-  search: "",
-});
+const userStore = useUserStore();
+const user = userStore.getUser;
+const token = user.token;
+
+const {data: bloodDoners} = await $api.get('info/show-blood-doner', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  }
+);
+
 
 </script>
 
@@ -14,7 +24,6 @@ const formData = ref({
   <ion-page>
     <UserLayout :is-toolbar="true">
       <ion-content>
-
         <ion-grid>
           <ion-row>
             <ion-col>
@@ -22,8 +31,7 @@ const formData = ref({
                   <SearchInput/>
               </div>
               <div class="mt-4 mx-4">
-                <BloodnoderList/>
-                <BloodnoderList/>
+                <BloodnoderList :doner-list="bloodDoners"/>
               </div>
             </ion-col>
           </ion-row>

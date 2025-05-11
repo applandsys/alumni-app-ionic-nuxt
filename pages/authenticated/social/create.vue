@@ -21,19 +21,22 @@ const formData = reactive({
 
 
 const handleCreate = async () => {
+  const payload = new FormData();
+
+  payload.append('post_content', formData.post_content);
+  if (formData.post_image) {
+    payload.append('post_image', formData.post_image);
+  }
+
+
   try {
-
-    const payload = new FormData();
-    payload.append('post_content', formData.post_content);
-    if (formData.post_image) {
-      payload.append('post_image', formData.post_image);
-    }
-
-    const { data, pending, error } = await useApi('social/create', {
+    const { data, error } = await useFetch('social/create', {
       method: 'POST',
-      body: {
-        ...payload
-      }
+      baseURL: useRuntimeConfig().public.apiBase,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: payload,
     });
 
     if (error.value) {
@@ -41,17 +44,10 @@ const handleCreate = async () => {
     } else {
       console.log('Response:', data.value);
     }
-
   } catch (err) {
     console.error("social create failed", err);
-    return {err};
   }
 };
-
-const addImageToFormData = () =>{
-
-}
-
 
 
 const onFileChange = (event: Event) => {
@@ -105,6 +101,7 @@ const onFileChange = (event: Event) => {
                     class="w-full text-xl border-none focus:ring-0 resize-none placeholder-gray-500"
                     rows="3"
                     :placeholder="`What'son your mind ? ${memberDetail?.name } ?`"
+                    v-model="formData.post_content"
                 ></textarea>
               </div>
 
