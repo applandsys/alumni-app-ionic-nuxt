@@ -39,19 +39,19 @@ if(!user?.token){
         <ion-grid>
           <ion-row>
             <ion-col>
-              <div class="flex justify-between mt-4">
-                <div class="">
-                  <div v-if="user" class="flex flex-col m-4">
+              <div class="flex justify-between items-center mt-4">
+                <div class="p-4">
+                  <div v-if="user" class="flex flex-col">
                     <!-- <ion-text class="text-2xl font-bold"> {{ user.name }} </ion-text>
                     <ion-text class="text-gray-900"> Join Secretary </ion-text> -->
                   </div>
-                  <div class="bg-white p-1 rounded-3xl inline-block ml-4 px-4 flex flex-col">
+                  <div class="bg-gray-100 p-1 rounded-2xl px-4  flex flex-col">
                     <ion-text class="text-2xl font-bold"> {{ user.name }}  </ion-text>
                     <ion-text class="text-blue-700 text-sm">Uttara, Dhaka</ion-text>
                   </div>
                 </div>
                 <div class="flex justify-end">
-                  <div class="p-1 mt-4 mr-4  rounded-full">
+                  <div class="p-1  mr-4  rounded-full">
                     <img :src="Profile" alt="Logo" width="64px">
                   </div>
                 </div>
@@ -109,9 +109,9 @@ if(!user?.token){
             <ion-col>
               <div class="flex justify-start item-center m-1">
                 <MenuItem :image="RailIcon" title="রেল শিডিউল" href="/authenticated/info/railschedule" />
-                <MenuItem :image="VoteIcon" title="মতামত যাচাই" href="/authenticated/dashboard" />
+                <MenuItem :image="VoteIcon" title="মতামত যাচাই" href="/authenticated/info/votingpoll" />
                 <MenuItem :image="IdentityIcon" title="পরিচয়  খুজুন" href="/authenticated/info/idsearch" />
-                <MenuItem :image="CarIcon" title="গাড়ি ভাড়া" href="/authenticated/dashboard" />
+                <MenuItem :image="CarIcon" title="গাড়ি ভাড়া" href="/authenticated/info/rentacar" />
               </div>
             </ion-col>
           </ion-row>
@@ -131,10 +131,10 @@ if(!user?.token){
           <ion-row>
             <ion-col>
               <div class="flex justify-start item-center m-1">
-                <MenuItem :image="ContactsIcon" title="জরুরি নম্বর" href="/authenticated/dashboard" />
-                <MenuItem :image="AmbulenceIcon" title="এম্বুলেন্স" href="/authenticated/dashboard" />
-                <MenuItem :image="FireServiceIcon" title="ফায়ার সার্ভিস" href="/authenticated/dashboard" />
-                <MenuItem :image="PoliceStation" title="পুলিশ" href="/authenticated/dashboard" />
+                <MenuItem :image="ContactsIcon" title="জরুরি নম্বর" href="/authenticated/otherinfo/urgentnumber" />
+                <MenuItem :image="AmbulenceIcon" title="এম্বুলেন্স" href="/authenticated/otherinfo/ambulence" />
+                <MenuItem :image="FireServiceIcon" title="ফায়ার সার্ভিস" href="/authenticated/otherinfo/fireservice" />
+                <MenuItem :image="PoliceStation" title="পুলিশ" href="/authenticated/otherinfo/police" />
               </div>
             </ion-col>
           </ion-row>
@@ -144,15 +144,14 @@ if(!user?.token){
           <ion-row>
             <ion-col>
               <div class="flex justify-start item-center m-1">
-                <MenuItem :image="PoliticianIcon" title="রাজনেতা" />
-                <MenuItem :image="TimetableIcon" title="বাস শিডিউল" />
-                <MenuItem :image="WeatherIcon" title="আবহওয়া" />
-                <MenuItem :image="HotelIcon" title="আবা: হোটেল" />
+                <MenuItem :image="PoliticianIcon" title="রাজনেতা" href="/authenticated/otherinfo/political-leader" />
+                <MenuItem :image="TimetableIcon" title="বাস শিডিউল" href="/authenticated/otherinfo/bus-schedule" />
+                <MenuItem :image="WeatherIcon" title="আবহওয়া" href="/authenticated/otherinfo/weather" />
+                <MenuItem :image="HotelIcon" title="আবা: হোটেল" href="/authenticated/otherinfo/hotels" />
               </div>
             </ion-col>
           </ion-row>
         </ion-grid>
-
       </ion-content>
     </UserLayout>
   </ion-page>

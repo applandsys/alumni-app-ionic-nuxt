@@ -1,23 +1,17 @@
 <script setup lang="ts">
 
-import UserLayout from "~/layouts/UserLayout.vue";
-import SearchInput from "~/components/ui/search-input.vue";
-import BloodnoderList from "~/components/info/bloodnoder-list.vue";
-import {useUserStore} from "~/stores/userStore";
-const { $api } = useNuxtApp();
+  import UserLayout from "~/layouts/UserLayout.vue";
+  import SearchInput from "~/components/ui/search-input.vue";
+  import BloodnoderList from "~/components/info/bloodnoder-list.vue";
+  import {getApiData} from "~/composables/getApiData";
 
-const userStore = useUserStore();
-const user = userStore.getUser;
-const token = user.token;
+  const bloodDoners = ref([]);
 
-const {data: bloodDoners} = await $api.get('info/show-blood-doner', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    }
+  const getBoolDoners = async() => {
+    const {data} = await getApiData('info/show-blood-doner',[]);
+    bloodDoners.value = data;
   }
-);
-
-
+  getBoolDoners();
 </script>
 
 <template>

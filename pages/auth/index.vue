@@ -3,7 +3,7 @@ import { NuxtLink } from '#components';
 import { IonInput, IonItem, IonLabel  } from '@ionic/vue';
 import AuthLayout from '~/layouts/auth.vue';
 import { useUserStore } from '~/stores/userStore';
-import {getSavedPassword, saveLoginInfo} from '~/composables/saveLoginInfo';
+// import {getSavedPassword, saveLoginInfo} from '~/composables/saveLoginInfo';
 
   const { login } = useAuth();
   const router = useRouter();
@@ -15,14 +15,13 @@ const userStore = useUserStore();
     password:  ""
   });
 
-async function loadCredentials() {
-  const { username, password } = await getSavedPassword();
-  console.log(username, password);
-  formData.value.email = username && username;
-  formData.value.password = password;
-}
-
-loadCredentials();
+// async function loadCredentials() {
+//   const { username, password } = await getSavedPassword();
+//   formData.value.email = username && username;
+//   formData.value.password = password;
+// }
+//
+// loadCredentials();
 
 
   const handleLogin = async () => {
@@ -30,7 +29,7 @@ loadCredentials();
      const {data}  = await login(formData.value.email, formData.value.password);
      if(data.token){
        userStore.setUser(data);
-       await saveLoginInfo(formData.value.email, formData.value.password);
+    //   await saveLoginInfo(formData.value.email, formData.value.password);
        await router.push('/authenticated/home');
      }
     } catch (error) {

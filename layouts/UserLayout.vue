@@ -21,10 +21,10 @@ const handleLogout = () => {
     <div v-if="props.isToolbar">
       <ion-footer>
         <ion-toolbar>
-          <div class="flex flex-1 justify-around rounded-t-xl bg-amber-50 py-2 px-2">
+          <div class="flex flex-1 justify-around rounded-t-xl bg-amber-50 py-4 px-2">
 
             <NuxtLink to="/authenticated/home">
-              <div class="flex flex-col items-center justify-center " >
+              <div class="flex flex-col items-center justify-center pb-4" >
                 <IconHome/>
                 <ion-label class="tab-label">Home</ion-label>
               </div>

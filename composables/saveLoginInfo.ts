@@ -19,8 +19,7 @@ export const saveLoginInfo = async (username: string, password: string) => {
 
 export const getSavedPassword = async () => {
     if (!Capacitor.isNativePlatform()) {
-        console.warn('SecureStorage is only available on native platforms.');
-        return null;
+        return   { username: '', password:'' };
     }
 
     try {
@@ -29,8 +28,7 @@ export const getSavedPassword = async () => {
         const password = await storage.get('password');
         return { username, password };
     } catch (err) {
-        console.error('Error accessing secure storage:', err);
-        return null;
+        return   { username: '', password:'' };
     }
 };
 

@@ -1,14 +1,10 @@
 <script setup>
-import ContactIcon from "assets/images/contact.png";
-
-const {donerList} = defineProps(['doner-list']);
-const config = useRuntimeConfig();
-
-
+  const {donerList} = defineProps(['doner-list']);
+  const config = useRuntimeConfig();
 </script>
 
 <template>
-  <div class="max-w-sm bg-white shadow-md rounded-lg p-4 mt-2"  v-for="list in donerList.data.blood_doners">
+  <div class="page-inner max-w-sm bg-white shadow-md rounded-lg p-4 mt-2"  v-for="list in donerList.blood_doners">
     <div class=" flex gap-4 items-start ">
       <div>
         <img :src="`${config.public.imageBase}/blood_doner/${list.photo}`" alt="Profile" class="w-16 h-16 rounded-md object-cover" />
@@ -45,6 +41,5 @@ const config = useRuntimeConfig();
         </div>
       </div>
     </div>
-
   </div>
 </template>

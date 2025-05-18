@@ -27,9 +27,9 @@ const navigateToLogin = () =>{
                        <div class="app-title mb-10  text-center color-white">Digitalizing Bangladesh</div>
                      </ion-text>
                    </div>
-                   <div >
+                   <div>
                      <ion-text color="default">
-                       <div class="small-text">সমগ্র বাংলাদেশের জন্য একটি ডিজিটালাইজেশন অ্যাপস </div>
+                       <div class="small-text text-center">সমগ্র বাংলাদেশের জন্য একটি ডিজিটালাইজেশন অ্যাপস </div>
                      </ion-text>
                    </div>
                    <div >
