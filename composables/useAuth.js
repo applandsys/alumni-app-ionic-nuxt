@@ -19,14 +19,11 @@ export const useAuth = () => {
     };
     const signup = async (formData) => {
         try {
-            const {data} = await $api.post('/register', formData).catch(()=>{
-                throw new Error(err);
-            });
-            user.setUser(data?.data);
-            return {data:data?.data};
+            const response = await $api.post('/register', formData);
+            return { data: response.data?.data };
         } catch (err) {
-            console.error("signup failed", err);
-            return {err};
+            const error = err?.response?.data || { message: "An unexpected error occurred" };
+            return { error };
         }
     };
     const logout = () => {

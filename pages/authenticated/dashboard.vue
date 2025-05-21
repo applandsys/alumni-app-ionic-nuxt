@@ -24,10 +24,9 @@ import EventIcon from "~/assets/images/communication.png";
 
 const router = useRouter();
 const userStore = useUserStore();
-const user = userStore.getUser;
+const userData = userStore.getUser;
 
-
-if(!user?.token){
+if(!userData?.token){
   await navigateTo({ path: '/' })
 }
 </script>
@@ -41,13 +40,13 @@ if(!user?.token){
             <ion-col>
               <div class="flex justify-between items-center mt-4">
                 <div class="p-4">
-                  <div v-if="user" class="flex flex-col">
-                    <!-- <ion-text class="text-2xl font-bold"> {{ user.name }} </ion-text>
-                    <ion-text class="text-gray-900"> Join Secretary </ion-text> -->
-                  </div>
-                  <div class="bg-gray-100 p-1 rounded-2xl px-4  flex flex-col">
-                    <ion-text class="text-2xl font-bold"> {{ user.name }}  </ion-text>
-                    <ion-text class="text-blue-700 text-sm">Uttara, Dhaka</ion-text>
+<!--                  <div v-if="user" class="flex flex-col">-->
+<!--                    &lt;!&ndash; <ion-text class="text-2xl font-bold"> {{ user.name }} </ion-text>-->
+<!--                    <ion-text class="text-gray-900"> Join Secretary </ion-text> &ndash;&gt;-->
+<!--                  </div>-->
+                  <div class="bg-gray-100 p-1 rounded-2xl px-4  flex flex-col" v-if="userData" >
+                    <ion-text class="text-2xl font-bold"> {{ userData?.user.name }}  </ion-text>
+                    <ion-text class="text-blue-700 text-sm">{{userData.user?.division?.name}}, {{userData.user?.district?.name}},{{userData.user?.sub_district?.name}}</ion-text>
                   </div>
                 </div>
                 <div class="flex justify-end">
@@ -60,8 +59,7 @@ if(!user?.token){
           </ion-row>
         </ion-grid>
 
-
-        <!--
+        <!-- Zakier Patwary-->
         <div class="border-b-green-300 border-1 mx-2 mt-4"> </div>
         <ion-grid>
           <ion-row>
@@ -76,13 +74,13 @@ if(!user?.token){
             <ion-col>
               <div class="flex justify-start item-center m-1">
                 <MenuItem :image="CommunicationIcon" title="যোগাযোগ" href="/authenticated/members"/>
-                <MenuItem :image="EventIcon" title=" মিটিং / ইভেন্ট" href="/authenticated/info/event" />
-                <MenuItem :image="DoctorIcon" title="স্বাস্থ্য সেবা" href="/authenticated/info/healthcare" />
+                <MenuItem :image="EventIcon" title=" মিটিং / ইভেন্ট" href="/authenticated/management/event" />
+                <MenuItem :image="DoctorIcon" title="কমিটি" href="/authenticated/management/committee" />
               </div>
             </ion-col>
           </ion-row>
         </ion-grid>
-        -->
+        <!-- Zakier Patwary end-->
 
         <ion-grid>
           <ion-row>

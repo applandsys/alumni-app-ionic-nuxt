@@ -19,6 +19,8 @@ const selectedDistrict = ref(null);
 const selectedSubDistrict = ref(null);
 const selectedUnion = ref(null);
 
+const errorResponse = ref(null);
+
 const formData = reactive({
     name: "",
     email: "",
@@ -66,25 +68,33 @@ watch(selectedDistrict, async (districtId) => {
       }
 });
 
-watch(selectedSubDistrict, async (subDistrictId) => {
-    try {
-        const response = await $api.get(`/locations/union/${subDistrictId}`)
-        unions.value = response.data.unions;
-      } catch (error) {
-        console.error('API Error:', error)
-      }
-});
+  watch(selectedSubDistrict, async (subDistrictId) => {
+      try {
+          const response = await $api.get(`/locations/union/${subDistrictId}`)
+          unions.value = response.data.unions;
+        } catch (error) {
+          console.error('API Error:', error)
+        }
+  });
 
   const handleSignup = async () => {
     try {
-      const {data}  = await signup(formSubmitData.value);
-      console.log("data pasi:", data);
-      if(data.token){
-        userStore.setUser(data);
-        await router.push('/authenticated/dashboard');
+      const {data, error}  = await signup(formSubmitData.value);
+
+      if(error){
+        console.log(error);
+        errorResponse.value = error;
+      }
+
+      if(data){
+        if(data?.token){
+          userStore.setUser(data);
+          await router.push('/authenticated/dashboard');
+        }
       }
     } catch (error) {
-      alert('Signup failed!');
+      console.log(error);
+    //  errorResponse.value = error;
     }
   };
 </script>
@@ -98,6 +108,20 @@ watch(selectedSubDistrict, async (subDistrictId) => {
             <p>Join  us and build a New Bangladesh</p>
           </template>
           <div class="login_form">
+            <div v-if="errorResponse">
+              <div class="p-2 bg-red-400">
+<!--             <div>{{errorResponse}}</div>-->
+                <ul>
+                  <li v-if="errorResponse?.data?.email">{{errorResponse?.data?.email[0]}}</li>
+                  <li v-if="errorResponse?.data?.c_password">{{errorResponse?.data?.c_password[0]}}</li>
+                  <li v-if="errorResponse?.data?.division">{{errorResponse?.data?.division[0]}}</li>
+                  <li v-if="errorResponse?.data?.district">{{errorResponse?.data?.district[0]}}</li>
+                  <li v-if="errorResponse?.data?.sub_district">{{errorResponse?.data?.sub_district[0]}}</li>
+                  <li v-if="errorResponse?.data?.union">{{errorResponse?.data?.union[0]}}</li>
+                </ul>
+
+              </div>
+            </div>
               <form @submit.prevent="handleSignup">
                 <ion-item>
                   <ion-label position="stacked">Name</ion-label>
@@ -117,7 +141,7 @@ watch(selectedSubDistrict, async (subDistrictId) => {
                 </ion-item>
 
                 <ion-item>
-                  <ion-select label="Division" v-model="selectedDivision">
+                  <ion-select label="Division" v-model="selectedDivision" required>
                     <ion-select-option
                       :value="division.id"
                       v-for="division in divisions?.divisions"
@@ -130,7 +154,7 @@ watch(selectedSubDistrict, async (subDistrictId) => {
 
             
                 <ion-item v-if="districts.length" >
-                  <ion-select label="District" v-model="selectedDistrict" >
+                  <ion-select label="District" v-model="selectedDistrict" required>
                     <ion-select-option
                       :value="district.id"
                       v-for="district in districts"
@@ -142,7 +166,7 @@ watch(selectedSubDistrict, async (subDistrictId) => {
                 </ion-item>
 
                 <ion-item v-if="subdistricts.length" >
-                  <ion-select label="Upazilla" v-model="selectedSubDistrict">
+                  <ion-select label="Upazilla" v-model="selectedSubDistrict" required>
                     <ion-select-option
                       :value="subdistrict.id"
                       v-for="subdistrict in subdistricts"
@@ -155,7 +179,7 @@ watch(selectedSubDistrict, async (subDistrictId) => {
 
             
                 <ion-item v-if="unions.length" >
-                  <ion-select label="Union" v-model="selectedUnion">
+                  <ion-select label="Union" v-model="selectedUnion" required>
                     <ion-select-option
                       :value="union.id"
                       v-for="union in unions"
@@ -165,7 +189,6 @@ watch(selectedSubDistrict, async (subDistrictId) => {
                     </ion-select-option>
                   </ion-select>
                 </ion-item>
-
 
                 <ion-button expand="full" type="submit"  shape="round" color="success">Sinup</ion-button>
             </form>

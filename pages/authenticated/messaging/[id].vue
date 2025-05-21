@@ -14,20 +14,34 @@ const user = userStore.getUser;
 const route = useRoute();
 const memberId = route.params.id;
 
+const userData = userStore.getUser;
+
+if(!userData?.token){
+  await navigateTo({ path: '/' })
+}
+
 const showMessageList = ref([]);
 
 const formData = reactive({
-  from_user_id: user.user.id,
+  from_user_id: userData.user.id,
   to_user_id: memberId,
   message: "",
   type: "text"
 });
 
-const { data : memberDetail, pending, error } = useApi(`member-detail/${memberId}`);
+const { data: memberDetail } = await $api.get(`member-detail/${memberId}`, {
+  headers: {
+    Authorization: `Bearer ${userData?.token}`
+  }
+});
 
 const showMessage = async () => {
   try {
-    const { data } = await $api.get(`/messenger/show/${formData.from_user_id}/${memberId}`);
+    const { data } = await $api.get(`/messenger/show/${formData.from_user_id}/${memberId}`, {
+      headers: {
+        Authorization: `Bearer ${userData?.token}`
+      }
+    });
 
     const sortedMessages = data.message.sort((a, b) => {
       return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
@@ -42,7 +56,11 @@ const showMessage = async () => {
 
 const handleSend = async () => {
   try {
-    const {data} = await $api.post('/messenger/create', formData).catch((err)=>{
+    await $api.post('/messenger/create', formData , {
+      headers: {
+        Authorization: `Bearer ${userData?.token}`
+      }
+    }).catch((err)=>{
       throw new Error(err);
     });
 
@@ -80,8 +98,6 @@ setInterval(()=>{
 
         <div class="w-full p-2">
           <div class="overflow-y-auto h-96">
-
-
             <transition-group
                 name="fade-slide"
                 tag="div"
