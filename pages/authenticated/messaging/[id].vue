@@ -65,6 +65,7 @@ const handleSend = async () => {
     });
 
     showMessageList.value.push(formData);
+    formData.message = "";
 
   } catch (err) {
     console.error("signup failed", err);
@@ -96,7 +97,7 @@ setInterval(()=>{
       </ion-header>
       <ion-content>
 
-        <div class="w-full p-2">
+        <div class="w-full p-2 ">
           <div class="overflow-y-auto h-96">
             <transition-group
                 name="fade-slide"
@@ -130,7 +131,8 @@ setInterval(()=>{
 
           </div>
         </div>
-          <div class="absolute bottom-0 w-full bg-orange-500 p-2">
+
+          <div class="absolute bottom-0 w-full bg-orange-500 p-2 mb-4">
             <div class="flex items-center gap-2">
               <!-- Input takes up remaining space -->
               <IconPlusCircle/>

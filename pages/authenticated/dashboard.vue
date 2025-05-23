@@ -21,6 +21,7 @@ import HotelIcon from "~/assets/images/hotel.png";
 import UserLayout from "~/layouts/UserLayout.vue";
 import CommunicationIcon from "~/assets/images/communication.png";
 import EventIcon from "~/assets/images/communication.png";
+import GroupIcon from "~/assets/images/group.png";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -75,7 +76,7 @@ if(!userData?.token){
               <div class="flex justify-start item-center m-1">
                 <MenuItem :image="CommunicationIcon" title="যোগাযোগ" href="/authenticated/members"/>
                 <MenuItem :image="EventIcon" title=" মিটিং / ইভেন্ট" href="/authenticated/management/event" />
-                <MenuItem :image="DoctorIcon" title="কমিটি" href="/authenticated/management/committee" />
+                <MenuItem :image="GroupIcon" title="কমিটি" href="/authenticated/management/committee" />
               </div>
             </ion-col>
           </ion-row>
@@ -95,7 +96,7 @@ if(!userData?.token){
             <ion-col>
               <div class="flex justify-start item-center m-1">
                 <MenuItem :image="BloodDonerIcon" title="রক্ত দাতা" href="/authenticated/info/bloodgroup"/>
-                <MenuItem :image="SimPackageIcon" title="সিম প্যাকেজ" href="/authenticated/info/bloodgroup" />
+                <MenuItem :image="SimPackageIcon" title="ইমারজেন্সি কল" href="/authenticated/info/bloodgroup" />
                 <MenuItem :image="DoctorIcon" title="স্বাস্থ্য সেবা" href="/authenticated/info/healthcare" />
               </div>
             </ion-col>
