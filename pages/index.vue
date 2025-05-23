@@ -1,9 +1,38 @@
 <script setup lang="ts">
+import { App as CapacitorApp } from '@capacitor/app';
+import { toastController } from '@ionic/vue'
+
 const router = useRouter();
+
+let lastBackPress = 0
+
+CapacitorApp.addListener('backButton', async () => {
+  const currentRoute = router.currentRoute.value.fullPath;
+
+  if (currentRoute === '/') {
+    const now = new Date().getTime()
+    if (now - lastBackPress < 2000) {
+      await CapacitorApp.exitApp()
+    } else {
+      lastBackPress = now
+      const toast = await toastController.create({
+        message: 'Press back again to exit',
+        duration: 1500,
+        position: 'bottom',
+      })
+      await toast.present()
+    }
+  } else {
+    window.history.back()
+  }
+
+});
 
 const navigateToLogin = () =>{
   router.push('/auth'); // Navigate to the /auth route
 }
+
+
  
 </script>
 
