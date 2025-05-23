@@ -33,7 +33,7 @@ const navigateToLogin = () =>{
 }
 
 
- 
+
 </script>
 
 <template>

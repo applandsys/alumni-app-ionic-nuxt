@@ -79,10 +79,10 @@ watch(selectedDistrict, async (districtId) => {
 
   const handleSignup = async () => {
     try {
+
       const {data, error}  = await signup(formSubmitData.value);
 
       if(error){
-        console.log(error);
         errorResponse.value = error;
       }
 

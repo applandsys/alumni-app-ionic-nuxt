@@ -26,6 +26,8 @@ import GroupIcon from "~/assets/images/group.png";
 const router = useRouter();
 const userStore = useUserStore();
 const userData = userStore.getUser;
+const config = useRuntimeConfig();
+const SCOPE = config.public.appScope || "normal";
 
 if(!userData?.token){
   await navigateTo({ path: '/' })
@@ -36,51 +38,52 @@ if(!userData?.token){
   <ion-page>
     <UserLayout :is-toolbar="true">
       <ion-content>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <div class="flex justify-between items-center mt-4">
-                <div class="p-4">
-<!--                  <div v-if="user" class="flex flex-col">-->
-<!--                    &lt;!&ndash; <ion-text class="text-2xl font-bold"> {{ user.name }} </ion-text>-->
-<!--                    <ion-text class="text-gray-900"> Join Secretary </ion-text> &ndash;&gt;-->
-<!--                  </div>-->
-                  <div class="bg-gray-100 p-1 rounded-2xl px-4  flex flex-col" v-if="userData" >
-                    <ion-text class="text-2xl font-bold"> {{ userData?.user.name }}  </ion-text>
-                    <ion-text class="text-blue-700 text-sm">{{userData.user?.division?.name}}, {{userData.user?.district?.name}},{{userData.user?.sub_district?.name}}</ion-text>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-header>
+                  <div class="flex justify-between items-center mt-4">
+                    <div class="p-4">
+                      <div class="bg-gray-100 p-1 rounded-2xl px-4  flex flex-col" v-if="userData" >
+                        <ion-text class="text-2xl font-bold"> {{ userData?.user.name }}  </ion-text>
+                        <ion-text class="text-blue-700 text-sm">{{userData.user?.division?.name}}, {{userData.user?.district?.name}},{{userData.user?.sub_district?.name}}</ion-text>
+                      </div>
+                    </div>
+                    <div class="flex justify-end">
+                      <div class="p-1  mr-4  rounded-full">
+                        <img :src="Profile" alt="Logo" width="64px">
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="flex justify-end">
-                  <div class="p-1  mr-4  rounded-full">
-                    <img :src="Profile" alt="Logo" width="64px">
-                  </div>
-                </div>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+                </ion-header>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
 
         <!-- Zakier Patwary-->
-        <div class="border-b-green-300 border-1 mx-2 mt-4"> </div>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <div class="ml-4 text-2xl font-bold mt-5 text-amber-800">ব্যবস্থাপনা</div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <div v-if="SCOPE==='PARTY'">
+          <div class="border-b-green-300  mx-2 mt-4"> </div>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="ml-4 text-2xl font-bold mt-5 text-amber-800">ব্যবস্থাপনা</div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
 
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <div class="flex justify-start item-center m-1">
-                <MenuItem :image="CommunicationIcon" title="যোগাযোগ" href="/authenticated/members"/>
-                <MenuItem :image="EventIcon" title=" মিটিং / ইভেন্ট" href="/authenticated/management/event" />
-                <MenuItem :image="GroupIcon" title="কমিটি" href="/authenticated/management/committee" />
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="flex justify-start item-center m-1">
+                  <MenuItem :image="CommunicationIcon" title="যোগাযোগ" href="/authenticated/members"/>
+                  <MenuItem :image="EventIcon" title=" মিটিং / ইভেন্ট" href="/authenticated/management/event" />
+                  <MenuItem :image="GroupIcon" title="কমিটি" href="/authenticated/management/committee" />
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="border-b-green-300 border-1 mx-2 mt-4"> </div>
+        </div>
         <!-- Zakier Patwary end-->
 
         <ion-grid>
@@ -116,8 +119,9 @@ if(!userData?.token){
           </ion-row>
         </ion-grid>
 
-                
+
         <div class="border-b-green-300 border-1 mx-2 mt-4"> </div>
+
         <ion-grid>
           <ion-row>
             <ion-col>

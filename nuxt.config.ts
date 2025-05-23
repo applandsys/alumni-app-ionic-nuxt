@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.API_URL || '127.0.0.1:8000/api/v1',
       imageBase:  process.env.IMAGE_URL || '127.0.0.1:8000',
+      appScope:  process.env.APP_SCOPE || 'normal',
     },
   },
   ssr: false,

@@ -9,6 +9,7 @@ const geturgentNumbers = async() => {
   const {data} = await getApiData('other-info/show-urgent-number',[]);
   urgentNumbers.value = data;
 }
+
 geturgentNumbers();
 </script>
 

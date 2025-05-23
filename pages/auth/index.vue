@@ -7,6 +7,7 @@ import { useUserStore } from '~/stores/userStore';
 
   const { login } = useAuth();
   const router = useRouter();
+const errorResponse = ref(null);
 
 const userStore = useUserStore();
 
@@ -26,12 +27,19 @@ const userStore = useUserStore();
 
   const handleLogin = async () => {
     try {
-     const {data}  = await login(formData.value.email, formData.value.password);
-     if(data.token){
-       userStore.setUser(data);
-    //   await saveLoginInfo(formData.value.email, formData.value.password);
-       await router.push('/authenticated/home');
-     }
+      const {data, error}  = await login(formData.value.email, formData.value.password);
+
+      if(error){
+        errorResponse.value = error;
+      }
+
+      if(!error){
+        if(data.token){
+          userStore.setUser(data);
+          await router.push('/authenticated/home');
+        }
+      }
+
     } catch (error) {
       console.log("Login erro:",error);
     }
@@ -48,6 +56,15 @@ const userStore = useUserStore();
                 <h1 class="title-text"> Sign in</h1>
                 <p>Continue with sign in info</p>
                 <hr/>
+              </div>
+              <div v-if="errorResponse">
+                <div class="p-2 bg-red-400">
+                  <ul>
+                    <li v-if="errorResponse.data.error">Wrong User or Password</li>
+                    <li v-if="errorResponse?.data?.email">{{errorResponse?.data?.email[0]}}</li>
+                    <li v-if="errorResponse?.data?.password">{{errorResponse?.data?.password[0]}}</li>
+                  </ul>
+                </div>
               </div>
               <form @submit.prevent="handleLogin">
                 <ion-item>
