@@ -32,8 +32,6 @@ const navigateToLogin = () =>{
   router.push('/auth'); // Navigate to the /auth route
 }
 
-
-
 </script>
 
 <template>
